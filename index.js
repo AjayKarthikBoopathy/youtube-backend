@@ -13,7 +13,7 @@ dotenv.config();
 
 const connect = () => {
   mongoose
-    .connect(process.env.MONGO)
+    .connect("mongodb+srv://ajay97:ajay97@cluster0.c76i2k0.mongodb.net/?retryWrites=true&w=majority")
     .then(() => {
       console.log("Connected to DB");
     })
