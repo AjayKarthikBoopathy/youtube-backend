@@ -32,6 +32,9 @@ export const signin = async (req, res, next) => {
     res
       .cookie("access_token", token, {  //cookie parser installed
         httpOnly: true, //http - secure connection
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: "none",
+        secure: true,
       })
       .status(200)
       .json(others);  //omitted even the hashed password in response message
