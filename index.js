@@ -13,8 +13,9 @@ const app = express();
 //app.use(cors());
 
 const corsOptions = {
-  origin: ["https://youtube-application123.netlify.app/"],
+  origin: "https://youtube-application123.netlify.app/",
   credentials: true,
+  optionSuccessStatus:200
 };
 app.use(cors(corsOptions));
 
