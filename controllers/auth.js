@@ -6,12 +6,27 @@ import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
   try {
+    const user = await User.findOne({ name: req.body.name });
+    if (user) return next(createError(400, "Username already exists!"));
+
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
     const newUser = new User({ ...req.body, password: hash });
 
     await newUser.save();
-    res.status(200).send("User has been created!");
+    //res.status(200).send("User has been created!");
+    const token = jwt.sign({ id: user._id }, process.env.JWT);
+    const { password, ...others } = user._doc;  //picked out the password
+
+    res
+      .cookie("access_token", token, {  //cookie parser installed
+        httpOnly: true, //http - secure connection
+        maxAge: 24 * 60 * 60 * 1000,  //1day
+        sameSite: "none",
+        secure: true,
+      })
+      .status(200).send("User has been created!")
+      .json(others);
   } catch (err) {
     next(err);
   }
