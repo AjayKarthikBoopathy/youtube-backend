@@ -8,10 +8,16 @@ import authRoutes from "./routes/auth.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-
-const app = express();
-app.use(cors());
 dotenv.config();
+const app = express();
+//app.use(cors());
+
+const corsOptions = {
+  origin: ["https://youtube-application123.netlify.app/"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 
 const connect = () => {
   mongoose
