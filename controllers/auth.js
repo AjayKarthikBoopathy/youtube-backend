@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
   try {
-    const user = await User.findOne({ name: req.body.name });
+    let user = await User.findOne({ name: req.body.name });
     if (user) return next(createError(400, "Username already exists!"));
 
     const salt = bcrypt.genSaltSync(10);
