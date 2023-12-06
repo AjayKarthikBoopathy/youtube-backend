@@ -26,7 +26,7 @@ export const signup = async (req, res, next) => {
         sameSite: "none",
         secure: true,
       })
-      .status(200).send("User has been created!")
+      .status(200)    //.send("User has been created!")
       .json(others);
   } catch (err) {
     next(err);
